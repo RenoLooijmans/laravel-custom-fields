@@ -12,7 +12,7 @@ class CustomFieldTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function test_it_can_have_a_group()
+    public function test_it_can_have_a_group(): void
     {
         $survey = Survey::create();
 
@@ -27,7 +27,7 @@ class CustomFieldTest extends TestCase
         $this->assertEquals('foo', $customField->group);
     }
 
-    public function test_collection_validation_rules()
+    public function test_collection_validation_rules(): void
     {
         $survey = Survey::create();
 
@@ -38,7 +38,7 @@ class CustomFieldTest extends TestCase
             ['title' => 'My Select Field', 'type' => 'select', 'answers' => ['foo', 'bar']],
             ['title' => 'My Text Field', 'type' => 'text'],
             ['title' => 'My Textarea Field', 'type' => 'textarea'],
-            ['title' => 'My Multi Checkbox Field', 'type' => 'multicheckbox'],
+            ['title' => 'My Multiselect Field', 'type' => 'multiselect'],
         )->create([
             'model_id' => $survey->id,
             'model_type' => $survey->getMorphClass(),

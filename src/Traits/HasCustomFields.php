@@ -46,7 +46,7 @@ trait HasCustomFields
      * @throws FieldDoesNotBelongToModelException
      * @throws WrongNumberOfFieldsForOrderingException
      */
-    public function order($fields)
+    public function order($fields): void
     {
         $fields = collect($fields);
 

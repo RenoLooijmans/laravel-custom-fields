@@ -17,18 +17,14 @@ class CustomField extends Model
     use HasFactory, SoftDeletes;
 
     /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]|bool
+     * The attributes that aren't mass-assignable.
      */
     protected $guarded = [
         'id',
     ];
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
+     * The attributes that are mass-assignable.
      */
     protected $fillable = [
         'group',
@@ -43,8 +39,6 @@ class CustomField extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'answers' => 'array',
@@ -63,14 +57,12 @@ class CustomField extends Model
 
     /**
      * Bootstrap the model and its traits.
-     *
-     * @return void
      */
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
-        self::creating(function ($field) {
+        self::creating(static function ($field) {
             $lastFieldOnCurrentModel = $field->model
                 ->customFields()
                 ->reorder()
@@ -142,10 +134,8 @@ class CustomField extends Model
 
     /**
      * Create a new Eloquent Collection instance.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function newCollection(array $models = [])
+    public function newCollection(array $models = []): CustomFieldCollection
     {
         return new CustomFieldCollection($models);
     }
