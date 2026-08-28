@@ -101,6 +101,16 @@ class CustomFieldFactory extends Factory
     }
 
     /**
+     * @return $this
+     */
+    public function withTypeMultiselect()
+    {
+        $this->model->type = CustomFieldType::MULTISELECT;
+
+        return $this;
+    }
+
+    /**
      * @param $defaultValue
      * @return $this
      */
