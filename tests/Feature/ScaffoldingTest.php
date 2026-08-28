@@ -5,12 +5,13 @@ namespace Givebutter\Tests\Feature;
 use Givebutter\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Attributes\Test;
 
 class ScaffoldingTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function both_tables_are_created_by_migrations()
     {
         $tables = array_map(
@@ -24,7 +25,7 @@ class ScaffoldingTest extends TestCase
         $this->assertContains('custom_field_responses', $tables);
     }
 
-    /** @test */
+    #[Test]
     public function table_names_are_customizable_by_config()
     {
         config([
@@ -49,7 +50,7 @@ class ScaffoldingTest extends TestCase
         $this->assertContains('Bap', $tables);
     }
 
-    /** @test */
+    #[Test]
     public function default_table_names_are_not_used_if_there_is_custom_config()
     {
         config([

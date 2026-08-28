@@ -8,12 +8,13 @@ use Givebutter\LaravelCustomFields\Models\CustomField;
 use Givebutter\Tests\Support\Survey;
 use Givebutter\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class OrderingTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function new_fields_are_ordered_by_default()
     {
         $survey = Survey::create();
@@ -32,7 +33,7 @@ class OrderingTest extends TestCase
         $this->assertEquals(2, $survey->customfields->firstWhere('title', 'phone')->order);
     }
 
-    /** @test */
+    #[Test]
     public function order_function_replaces_field_orders()
     {
         $survey = Survey::create();
@@ -53,7 +54,7 @@ class OrderingTest extends TestCase
         $this->assertEquals(1, $survey->customfields->firstWhere('title', 'phone')->order);
     }
 
-    /** @test */
+    #[Test]
     public function order_function_throws_exception_for_wrong_number_of_ids()
     {
         $survey = Survey::create();
@@ -74,7 +75,7 @@ class OrderingTest extends TestCase
         $survey->order([3, 2, 1]);
     }
 
-    /** @test */
+    #[Test]
     public function order_function_throws_exception_if_passed_fields_not_belonging_to_model()
     {
         $survey1 = Survey::create();

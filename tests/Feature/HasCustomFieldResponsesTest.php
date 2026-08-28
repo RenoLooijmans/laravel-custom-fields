@@ -8,12 +8,13 @@ use Givebutter\Tests\Support\Survey;
 use Givebutter\Tests\Support\SurveyResponse;
 use Givebutter\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class HasCustomFieldResponsesTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function custom_fields_responses_can_be_created_and_accessed_on_models_with_trait()
     {
         $customFieldModel = Survey::create();
@@ -39,7 +40,7 @@ class HasCustomFieldResponsesTest extends TestCase
         $this->assertEquals('Best Rapper Alive', $customFieldResponseModel->fresh()->customFieldResponses->first()->value_str);
     }
 
-    /** @test */
+    #[Test]
     public function whereField_method_allows_filtering_responses()
     {
         $customFieldModel = Survey::create();
@@ -76,7 +77,7 @@ class HasCustomFieldResponsesTest extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function value_getter_and_setter_work_fine()
     {
         $customFieldModel = Survey::create();

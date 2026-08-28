@@ -69,7 +69,14 @@ class TestCase extends OrchestraTestCase
 
     protected function resetDatabase()
     {
-        $this->artisan('migrate:fresh');
+        $schema = $this->app['db']->connection()->getSchemaBuilder();
+
+        $schema->withoutForeignKeyConstraints(function () use ($schema) {
+            foreach ($schema->getTableListing(schemaQualified: false) as $table) {
+                $schema->dropIfExists($table);
+            }
+        });
+
         $this->runMigrationStub();
     }
 }

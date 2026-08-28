@@ -10,12 +10,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 class CustomFieldControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function valid_data_passes_controller_validation()
     {
         $survey = Survey::create();
@@ -42,7 +44,7 @@ class CustomFieldControllerTest extends TestCase
             ])->assertOk();
     }
 
-    /** @test */
+    #[Test]
     public function can_overwrite_response_values()
     {
         /** @var Survey $survey */
@@ -90,7 +92,7 @@ class CustomFieldControllerTest extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function invalid_data_throws_validation_exception()
     {
         /** @var Survey $survey */
@@ -124,7 +126,7 @@ class CustomFieldControllerTest extends TestCase
             ->assertJsonFragment(["field_1" => ["The selected favorite_album is invalid."]]);
     }
 
-    /** @test */
+    #[Test]
     public function non_required_fields_can_be_left_null_for_validation()
     {
         $survey = Survey::create();
@@ -157,10 +159,8 @@ class CustomFieldControllerTest extends TestCase
             ])->assertSee('All good');
     }
 
-    /**
-     * @test
-     * @dataProvider checkboxChoices
-     */
+    #[Test]
+    #[DataProvider('checkboxChoices')]
     public function checkbox_can_pass_validation(mixed $value, callable $assert)
     {
         $survey = Survey::create();
@@ -196,7 +196,7 @@ class CustomFieldControllerTest extends TestCase
         $assert($this, $surveyResponse);
     }
 
-    public function checkboxChoices(): iterable
+    public static function checkboxChoices(): iterable
     {
         yield 'true' => [
             true,
@@ -290,7 +290,7 @@ class CustomFieldControllerTest extends TestCase
         ];
     }
 
-    /** @test */
+    #[Test]
     public function fields_can_be_saved_from_request_with_convenience_method()
     {
         $survey = Survey::create();
@@ -321,7 +321,7 @@ class CustomFieldControllerTest extends TestCase
         $this->assertCount(1, $surveyResponse->customFieldResponses);
     }
 
-    /** @test */
+    #[Test]
     public function can_validate_request_with_no_custom_fields()
     {
         $survey = Survey::create();
@@ -343,7 +343,7 @@ class CustomFieldControllerTest extends TestCase
             ->assertOk();
     }
 
-    /** @test */
+    #[Test]
     public function fails_validation_on_request_with_no_custom_fields_but_is_required()
     {
         $survey = Survey::create();

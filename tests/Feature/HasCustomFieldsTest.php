@@ -6,12 +6,13 @@ use Givebutter\LaravelCustomFields\Models\CustomField;
 use Givebutter\Tests\Support\Survey;
 use Givebutter\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class HasCustomFieldsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function custom_fields_can_be_created_and_accessed_on_models_with_trait()
     {
         $model = Survey::create();
@@ -28,7 +29,7 @@ class HasCustomFieldsTest extends TestCase
         $this->assertEquals('Lil Wayne', $model->fresh()->customFields->first()->description);
     }
 
-    /** @test */
+    #[Test]
     public function test_validating_unowned_custom_field_ids_are_ignored()
     {
         $model = Survey::create();
